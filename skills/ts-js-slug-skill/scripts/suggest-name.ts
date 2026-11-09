@@ -73,18 +73,9 @@ function readDictionary(file: string | URL): Dictionary {
 }
 
 export function loadDictionary(repoRoot: string = process.cwd()): Dictionary {
-  let dict = readDictionary(new URL('../dictionary/default.json', import.meta.url))
-  for (const name of [
-    '.ts-abbr-skill.local.json',
-    '.slug-skill.local.json',
-    '.ts-js-slug-skill.local.json',
-  ]) {
-    const file = path.join(repoRoot, name)
-    if (fs.existsSync(file)) {
-      dict = { ...dict, ...readDictionary(file) }
-    }
-  }
-  return dict
+  const dict = readDictionary(new URL('../dictionary/default.json', import.meta.url))
+  const file = path.join(repoRoot, '.ts-js-slug-skill.local.json')
+  return fs.existsSync(file) ? { ...dict, ...readDictionary(file) } : dict
 }
 
 export function abbreviateIdentifier(name: string, dict: Dictionary): string {

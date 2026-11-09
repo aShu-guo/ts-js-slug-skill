@@ -60,7 +60,10 @@ test('default suggestions preserve distinct concepts and readable configuration 
     numberValue: 'numVal',
     numbers: 'nums',
     numericValue: 'numericVal',
-    format: 'format',
+    component: 'comp',
+    components: 'components',
+    format: 'fmt',
+    formatName: 'fmtName',
     formatter: 'formatter',
     formatters: 'formatters',
     subscriber: 'subscriber',
@@ -118,30 +121,23 @@ test('project abbreviations cannot introduce reserved or restricted binding name
   assert.equal(abbreviateIdentifier('business-context', { business: 'biz' }), 'business-context')
 })
 
-test('current project overrides take precedence over both legacy filenames', (ctx) => {
+test('project overrides replace selected defaults and preserve unrelated entries', (ctx) => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'slug-overrides-'))
   ctx.after(() => fs.rmSync(dir, { recursive: true, force: true }))
-  fs.writeFileSync(
-    path.join(dir, '.ts-abbr-skill.local.json'),
-    '{"context":"ctxt","warehouse":"wh"}',
-  )
-  const legacyDict = loadDictionary(dir)
-  assert.equal(legacyDict.context, 'ctxt')
-  fs.writeFileSync(path.join(dir, '.slug-skill.local.json'), '{"context":"cx","customer":"cust"}')
-  const slugDict = loadDictionary(dir)
-  assert.equal(slugDict.context, 'cx')
+  const defaults = loadDictionary(dir)
+  assert.equal(defaults.context, 'ctx')
   fs.writeFileSync(
     path.join(dir, '.ts-js-slug-skill.local.json'),
-    '{"context":"ctx","account":"acct"}',
+    '{"context":"ctxt","warehouse":"wh","customer":"cust","account":"acct"}',
   )
 
   const dict = loadDictionary(dir)
-  assert.equal(dict.context, 'ctx')
+  assert.equal(dict.context, 'ctxt')
   assert.equal(dict.warehouse, 'wh')
   assert.equal(dict.customer, 'cust')
   assert.equal(dict.account, 'acct')
   assert.equal(dict.business, 'biz')
-  assert.equal(abbreviateIdentifier('warehouseCustomerAccountContext', dict), 'whCustAcctCtx')
+  assert.equal(abbreviateIdentifier('warehouseCustomerAccountContext', dict), 'whCustAcctCtxt')
 })
 
 test('invalid dictionary overrides fail clearly instead of producing broken suggestions', (ctx) => {

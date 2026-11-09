@@ -14,9 +14,7 @@ Read `config/default.config.json` for the eligible identifier kinds (`variable`,
 Merge dictionaries from lowest to highest priority:
 
 1. This skill's `dictionary/default.json`.
-2. `.ts-abbr-skill.local.json` at the target repository root, when present, for compatibility with earlier installations.
-3. `.slug-skill.local.json` at the target repository root, when present, for compatibility with earlier installations.
-4. `.ts-js-slug-skill.local.json` at the target repository root, when present.
+2. `.ts-js-slug-skill.local.json` at the target repository root, when present.
 
 Each override is a flat JSON object mapping lowercase English words to lowercase abbreviations. Preserve unrelated defaults when merging. Consult the dictionary for every eligible identifier, including intermediate locals, loop variables, and destructured bindings introduced by the code itself.
 

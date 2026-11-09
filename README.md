@@ -18,13 +18,13 @@ The logo places a white **S** for `slug` between blue TypeScript and yellow Java
 
 ## Install
 
-After the updated skill is available in the source repository, install it with:
+Install the skill from GitHub:
 
 ```bash
-npx skills add aShu-guo/ts-abbr-skill --skill ts-js-slug-skill
+npx skills add aShu-guo/ts-js-slug-skill --skill ts-js-slug-skill
 ```
 
-After the npm package is published, select Claude Code/Codex and project/global scope interactively:
+Or use the npm installer to select Claude Code/Codex and project/global scope interactively:
 
 ```bash
 npx ts-js-slug-skill
@@ -73,7 +73,7 @@ The dictionary covers general programming, collections, networking, security, st
 
 The authoritative built-in mappings are in [dictionary/default.json](skills/ts-js-slug-skill/dictionary/default.json); examples and tests follow that file. Words absent from the resolved dictionary remain unchanged. Some words share an abbreviation; keep the full name when the shorter form would obscure meaning or collide in the target scope.
 
-`configuration/configurations` become `config/configs`; existing `config` stays unchanged. `dev`, `sync`, and `num` represent `development`, `synchronous`, and `number` respectively. Keep `developer`, `synchronize`, `synchronization`, `numeric`, `format`, `formatter`, `subscriber`, and `subscription` in full, along with their plural forms.
+`configuration/configurations` become `config/configs`; existing `config` stays unchanged. `dev`, `sync`, and `num` represent `development`, `synchronous`, and `number` respectively. `format` becomes `fmt`; `formatter` and `formatters` stay unchanged. `component` becomes `comp`, while `components` stays unchanged. Keep `developer`, `synchronize`, `synchronization`, `numeric`, `subscriber`, and `subscription` in full, along with their plural forms.
 
 ## Customize
 
@@ -94,7 +94,7 @@ Add a flat dictionary override at the target repository root as `.ts-js-slug-ski
 }
 ```
 
-Entries merge over built-in defaults. Both legacy filenames remain supported: precedence is built-in defaults < `.ts-abbr-skill.local.json` < `.slug-skill.local.json` < `.ts-js-slug-skill.local.json`. Override files contain word mappings only; scope stays in the skill config.
+Entries in `.ts-js-slug-skill.local.json` merge over built-in defaults; this is the only project override filename. Override files contain word mappings only; scope stays in the skill config.
 
 ## Bundled Scripts
 
@@ -124,9 +124,9 @@ MAXIMUM_BUFFER_LENGTH -> MAX_BUF_LEN
 
 The helper handles ASCII identifiers and conservatively leaves non-ASCII names and names enclosed in double underscores unchanged. It checks each complete candidate's identifier syntax and rejects reserved or restricted binding names under strict/module conventions, falling back to the original name. For example, `variable` stays `variable`, while `variableCount` becomes `varCount`. It does not inspect source scope, built-ins, or collisions; the agent must review suggestions in their source context.
 
-## Migrate from ts-abbr-skill or slug-skill
+## Update an Installation
 
-Install `ts-js-slug-skill` in the same agent/scope, copy your customized config/dictionary from the old skill directory if needed, then remove the old installation to avoid loading both skills. The installer creates the new directory and does not migrate or remove an old installation automatically. Existing protected dictionaries are preserved on reinstall; merge updated built-in entries manually if you customized that file.
+Reinstall `ts-js-slug-skill` in the same agent/scope to update skill instructions and scripts. Existing protected configurations and dictionaries are preserved; merge updated built-in entries manually if you customized those files. Store project overrides in `.ts-js-slug-skill.local.json`.
 
 ## Development
 
@@ -146,7 +146,7 @@ ln -sfn /path/to/ts-js-slug-skill/skills/ts-js-slug-skill \
   your-test-project/.claude/skills/ts-js-slug-skill
 ```
 
-The source repository is currently `aShu-guo/ts-abbr-skill`. A GitHub repository rename and npm publication are separate release steps; changing local metadata does not perform either action.
+Source: [aShu-guo/ts-js-slug-skill](https://github.com/aShu-guo/ts-js-slug-skill). npm: [ts-js-slug-skill](https://www.npmjs.com/package/ts-js-slug-skill).
 
 ## Publish to npm
 

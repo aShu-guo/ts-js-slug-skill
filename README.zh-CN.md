@@ -18,13 +18,13 @@ Logo 以代表 `slug` 的白色 **S** 为中心，两侧代码括号分别使用
 
 ## 安装
 
-更新后的技能推送到源仓库后，可通过以下命令安装：
+从 GitHub 安装技能：
 
 ```bash
-npx skills add aShu-guo/ts-abbr-skill --skill ts-js-slug-skill
+npx skills add aShu-guo/ts-js-slug-skill --skill ts-js-slug-skill
 ```
 
-npm 包发布后，也可通过交互式安装器选择 Claude Code/Codex、项目级/全局安装位置：
+也可通过 npm 安装器交互选择 Claude Code/Codex、项目级/全局安装位置：
 
 ```bash
 npx ts-js-slug-skill
@@ -73,7 +73,7 @@ npx ts-js-slug-skill
 
 内置映射以 [dictionary/default.json](skills/ts-js-slug-skill/dictionary/default.json) 为准，示例和测试随词典同步。合并后的词典未收录的单词保持原样。部分词条存在相同缩写；当缩写造成歧义或同作用域冲突时，保留完整名称。
 
-`configuration/configurations` 使用 `config/configs`，已有的 `config` 保持原样。`dev`、`sync`、`num` 分别表示 `development`、`synchronous`、`number`；`developer`、`synchronize`、`synchronization`、`numeric`、`format`、`formatter`、`subscriber`、`subscription` 及其复数形式保留完整词。
+`configuration/configurations` 使用 `config/configs`，已有的 `config` 保持原样。`dev`、`sync`、`num` 分别表示 `development`、`synchronous`、`number`。`format` 使用 `fmt`，`formatter` 和 `formatters` 保持原样；`component` 使用 `comp`，`components` 保持原样。`developer`、`synchronize`、`synchronization`、`numeric`、`subscriber`、`subscription` 及其复数形式保留完整词。
 
 ## 自定义
 
@@ -94,7 +94,7 @@ npx ts-js-slug-skill
 }
 ```
 
-词条合并覆盖内置词典，并兼容两个旧配置文件名。优先级为内置词典 < `.ts-abbr-skill.local.json` < `.slug-skill.local.json` < `.ts-js-slug-skill.local.json`。覆盖文件只存单词映射，范围配置仍放在技能配置文件中。
+`.ts-js-slug-skill.local.json` 是唯一的项目覆盖文件名，其词条覆盖内置词典。覆盖文件只存单词映射，范围配置仍放在技能配置文件中。
 
 ## 内置辅助脚本
 
@@ -124,9 +124,9 @@ MAXIMUM_BUFFER_LENGTH -> MAX_BUF_LEN
 
 脚本处理 ASCII 标识符，保守地保持非 ASCII 名称及两端带双下划线的名称原样。脚本检查完整候选的标识符语法，并按严格模式和模块约定排除保留字及受限绑定名；检查不通过时回退原名。例如 `variable` 保持原样，`variableCount` 缩写为 `varCount`。脚本不检查源码作用域、内置名称或冲突，agent 仍需结合源码审核建议。
 
-## 从 ts-abbr-skill 或 slug-skill 迁移
+## 更新已有安装
 
-在相同 agent 和安装范围内安装 `ts-js-slug-skill`，按需复制旧技能目录中自定义的配置和词典，再移除旧安装，避免同时加载两个技能。安装器创建新目录，不会自动迁移或删除旧安装。重复安装会保留受保护词典；如果曾直接修改该文件，需要手动合并更新后的内置词条。
+在相同 agent 和安装范围内重新安装 `ts-js-slug-skill`，即可更新技能说明和脚本。已有配置和词典会保留；若曾自定义这些文件，需要手动合并更新后的内置内容。项目覆盖词典统一放在 `.ts-js-slug-skill.local.json`。
 
 ## 本地开发
 
@@ -146,7 +146,7 @@ ln -sfn /path/to/ts-js-slug-skill/skills/ts-js-slug-skill \
   your-test-project/.claude/skills/ts-js-slug-skill
 ```
 
-当前源仓库为 `aShu-guo/ts-abbr-skill`。GitHub 远程仓库改名和 npm 发布属于独立的发布操作，修改本地元数据不会执行这两项操作。
+源仓库：[aShu-guo/ts-js-slug-skill](https://github.com/aShu-guo/ts-js-slug-skill)。npm 包：[ts-js-slug-skill](https://www.npmjs.com/package/ts-js-slug-skill)。
 
 ## 发布到 npm
 

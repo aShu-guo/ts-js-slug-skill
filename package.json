@@ -1,6 +1,6 @@
 {
   "name": "ts-js-slug-skill",
-  "version": "1.2.1",
+  "version": "2.0.0",
   "description": "Agent skill for clear, consistent TypeScript and JavaScript identifier naming using a configurable abbreviation dictionary.",
   "type": "module",
   "bin": {
@@ -40,7 +40,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aShu-guo/ts-abbr-skill.git"
+    "url": "git+https://github.com/aShu-guo/ts-js-slug-skill.git"
   },
   "dependencies": {
     "prompts": "^2.4.2"
