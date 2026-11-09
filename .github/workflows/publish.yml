@@ -50,7 +50,7 @@ jobs:
           node -e "
             const fs = require('fs');
             const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-            pkg.name = '@ashu-guo/ts-abbr-skill';
+            pkg.name = '@ashu-guo/ts-js-slug-skill';
             fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
           "
         name: Scope package name for GitHub Packages

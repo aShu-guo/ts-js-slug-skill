@@ -1,0 +1,93 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1200"
+  height="400"
+  viewBox="0 0 1200 400"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">ts-js-slug-skill — TypeScript and JavaScript naming skill</title>
+  <desc id="desc">
+    A white S between a blue TypeScript bracket and a yellow JavaScript bracket beside the
+    ts-js-slug-skill wordmark. The example transactionIdentifier to txId shows a readable abbreviation.
+  </desc>
+  <rect width="1200" height="400" rx="32" fill="#f8fafc" />
+  <g transform="translate(56 72)">
+    <rect width="256" height="256" rx="56" fill="#0f172a" />
+    <path
+      d="M69 86 39 128 69 170"
+      fill="none"
+      stroke="#60a5fa"
+      stroke-width="12"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M187 86 217 128 187 170"
+      fill="none"
+      stroke="#f7df1e"
+      stroke-width="12"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M155 76H112C99 76 90 87 90 102S99 128 112 128H144C157 128 166 139 166 154S157 180 144 180H101"
+      fill="none"
+      stroke="#f8fafc"
+      stroke-width="18"
+      stroke-linecap="round"
+    />
+  </g>
+  <g font-family="Avenir Next, Avenir, Segoe UI, sans-serif" font-size="16" font-weight="700">
+    <rect x="368" y="72" width="42" height="28" rx="6" fill="#3178c6" />
+    <text x="389" y="92" text-anchor="middle" fill="#ffffff">TS</text>
+    <rect x="418" y="72" width="42" height="28" rx="6" fill="#f7df1e" />
+    <text x="439" y="92" text-anchor="middle" fill="#0f172a">JS</text>
+    <text x="480" y="92" font-size="13" letter-spacing="2" fill="#475569">IDENTIFIER NAMING</text>
+  </g>
+  <text
+    x="368"
+    y="164"
+    font-family="Avenir Next, Avenir, Segoe UI, sans-serif"
+    font-size="68"
+    font-weight="700"
+    letter-spacing="-2"
+    fill="#0f172a"
+  >
+    ts-js-<tspan fill="#3178c6">slug</tspan>-skill
+  </text>
+  <text
+    x="370"
+    y="210"
+    font-family="Avenir Next, Avenir, Segoe UI, sans-serif"
+    font-size="23"
+    font-weight="500"
+    fill="#475569"
+  >
+    Clear, consistent code identifiers
+  </text>
+  <rect x="368" y="248" width="776" height="80" rx="16" fill="#e2e8f0" />
+  <text x="392" y="298" font-family="Menlo, Consolas, monospace" font-size="25" fill="#334155">
+    transactionIdentifier
+  </text>
+  <path
+    d="M762 288H820M807 275 820 288 807 301"
+    fill="none"
+    stroke="#64748b"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <rect x="874" y="260" width="248" height="56" rx="10" fill="#dbeafe" />
+  <text
+    x="998"
+    y="298"
+    text-anchor="middle"
+    font-family="Menlo, Consolas, monospace"
+    font-size="28"
+    font-weight="700"
+    fill="#1d4ed8"
+  >
+    txId
+  </text>
+</svg>

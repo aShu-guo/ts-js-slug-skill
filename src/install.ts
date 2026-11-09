@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-export const SKILL_NAME = 'ts-abbr-skill'
+export const SKILL_NAME = 'ts-js-slug-skill'
 
 /** Files that hold user customizations — never overwrite these if they already exist at the target. */
 const PROTECTED_RELATIVE_PATHS = ['config/default.config.json', 'dictionary/default.json']
@@ -33,7 +33,12 @@ export function getTargetDir(agent: Agent, scope: InstallScope, cwd: string): st
   return path.join(base, SKILL_NAME)
 }
 
-function copyRecursive(srcDir: string, destDir: string, protectedRelPaths: Set<string>, relPrefix = ''): string[] {
+function copyRecursive(
+  srcDir: string,
+  destDir: string,
+  protectedRelPaths: Set<string>,
+  relPrefix = '',
+): string[] {
   const skipped: string[] = []
   fs.mkdirSync(destDir, { recursive: true })
 
@@ -63,7 +68,11 @@ export interface InstallResult {
   skippedExisting: string[]
 }
 
-export function installSkill(agent: Agent, scope: InstallScope, cwd: string = process.cwd()): InstallResult {
+export function installSkill(
+  agent: Agent,
+  scope: InstallScope,
+  cwd: string = process.cwd(),
+): InstallResult {
   const srcDir = getSkillSourceDir()
   const targetDir = getTargetDir(agent, scope, cwd)
   const skippedExisting = copyRecursive(srcDir, targetDir, new Set(PROTECTED_RELATIVE_PATHS))

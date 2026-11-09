@@ -6,18 +6,20 @@ import { test } from 'node:test'
 import { getTargetDir, installSkill, SKILL_NAME } from '../src/install.js'
 
 function tmpDir(): string {
-  return fs.mkdtempSync(path.join(os.tmpdir(), 'ts-abbr-test-'))
+  return fs.mkdtempSync(path.join(os.tmpdir(), 'slug-test-'))
 }
 
 test('installSkill copies the full skill tree into a project scope', () => {
   const cwd = tmpDir()
   const { targetDir, skippedExisting } = installSkill('claude-code', 'project', cwd)
 
-  assert.equal(targetDir, path.join(cwd, '.claude/skills', SKILL_NAME))
+  assert.equal(targetDir, path.join(cwd, '.claude/skills/ts-js-slug-skill'))
   assert.ok(fs.existsSync(path.join(targetDir, 'SKILL.md')))
   assert.ok(fs.existsSync(path.join(targetDir, 'config/default.config.json')))
   assert.ok(fs.existsSync(path.join(targetDir, 'dictionary/default.json')))
   assert.ok(fs.existsSync(path.join(targetDir, 'scripts/rename-with-ts-morph.ts')))
+  assert.ok(fs.existsSync(path.join(targetDir, 'scripts/suggest-name.ts')))
+  assert.ok(fs.existsSync(path.join(targetDir, 'references/language-tooling.md')))
   assert.deepEqual(skippedExisting, [])
 })
 

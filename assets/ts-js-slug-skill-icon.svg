@@ -1,0 +1,37 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="256"
+  height="256"
+  viewBox="0 0 256 256"
+  role="img"
+  aria-labelledby="title desc"
+>
+  <title id="title">ts-js-slug-skill icon</title>
+  <desc id="desc">
+    A white S between a blue TypeScript bracket and a yellow JavaScript bracket on a dark square.
+  </desc>
+  <rect width="256" height="256" rx="56" fill="#0f172a" />
+  <path
+    d="M69 86 39 128 69 170"
+    fill="none"
+    stroke="#60a5fa"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M187 86 217 128 187 170"
+    fill="none"
+    stroke="#f7df1e"
+    stroke-width="12"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <path
+    d="M155 76H112C99 76 90 87 90 102S99 128 112 128H144C157 128 166 139 166 154S157 180 144 180H101"
+    fill="none"
+    stroke="#f8fafc"
+    stroke-width="18"
+    stroke-linecap="round"
+  />
+</svg>

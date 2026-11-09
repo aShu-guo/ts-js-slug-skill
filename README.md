@@ -1,114 +1,161 @@
-# ts-abbr-skill
+# ts-js-slug-skill
 
 <p align="center">
-  <img src="assets/logo.png" alt="ts-abbr-skill" width="480">
+  <img src="assets/ts-js-slug-skill-logo.svg" alt="ts-js-slug-skill: transactionIdentifier becomes txId in TypeScript and JavaScript" width="760">
 </p>
 
-<p align="center">
-  <a href="README.zh-CN.md">🇨🇳 简体中文</a> |
-  <a href="README.md">🇺🇸 English</a>
-</p>
+[简体中文](README.zh-CN.md) | [English](README.md)
 
-<p align="center">
-  <a href="https://github.com/aShu-guo/ts-abbr-skill/releases"><img src="https://img.shields.io/github/v/release/aShu-guo/ts-abbr-skill?style=for-the-badge&color=blue" alt="GitHub Release"></a>
-  <a href="https://www.npmjs.com/package/ts-abbr-skill"><img src="https://img.shields.io/npm/v/ts-abbr-skill?style=for-the-badge&logo=npm&color=red" alt="npm version"></a>
-  <a href="https://github.com/aShu-guo/ts-abbr-skill/blob/main/LICENSE"><img src="https://img.shields.io/github/license/aShu-guo/ts-abbr-skill?style=for-the-badge&color=green" alt="License"></a>
-</p>
+An agent skill for clear, consistent TypeScript and JavaScript identifier naming. Apply a shared abbreviation dictionary (`business` → `biz`, `context` → `ctx`, `configuration` → `config`) while preserving meaning, project naming conventions, and public contracts. Works with Claude Code, Codex, and agents supported by the [skills CLI](https://github.com/vercel-labs/skills).
 
-<p align="center">
-  <a href="https://www.npmjs.com/package/ts-abbr-skill"><img src="https://img.shields.io/npm/dm/ts-abbr-skill?style=flat-square&label=downloads" alt="npm downloads"></a>
-  <a href="https://github.com/aShu-guo/ts-abbr-skill/stargazers"><img src="https://img.shields.io/github/stars/aShu-guo/ts-abbr-skill?style=flat-square&logo=github" alt="GitHub stars"></a>
-</p>
+Naming guidance covers browser and Node.js code, including JSX/TSX. Prefer recognizable TS/JS abbreviations when they preserve clarity. The name-suggestion helper performs dictionary lookups; existing code uses the TypeScript/JavaScript language service or IDE semantic rename. The bundled AST rename helper supports TypeScript projects.
 
-An agent skill that makes generated/refactored TypeScript naming follow a shared abbreviation dictionary (`business` → `biz`, `context` → `ctx`, `configuration` → `cfg`, ...) instead of verbose full words. Works with **Claude Code**, **Codex**, and [any agent supported by the `skills` CLI](https://github.com/vercel-labs/skills).
+## Name and Logo
+
+`ts-js-slug-skill` names its TypeScript/JavaScript scope explicitly. “Slug” represents a compact, readable identifier, and “skill” describes the reusable naming guidance for coding agents. It preserves meaning and project conventions when shortening names, such as `businessContext` → `bizCtx` or `business_context` → `biz_ctx`.
+
+The logo places a white **S** for `slug` between blue TypeScript and yellow JavaScript code brackets. The `TS`/`JS` labels identify the supported languages, and `transactionIdentifier` → `txId` demonstrates the dictionary. The [SVG logo](assets/ts-js-slug-skill-logo.svg) and [square icon](assets/ts-js-slug-skill-icon.svg) scale without losing detail.
 
 ## Install
 
-### Option A — universal installer (recommended)
-
-Works with Claude Code, Codex, and 70+ other agents via [`skills`](https://github.com/vercel-labs/skills):
+After the updated skill is available in the source repository, install it with:
 
 ```bash
-npx skills add aShu-guo/ts-abbr-skill
+npx skills add aShu-guo/ts-abbr-skill --skill ts-js-slug-skill
 ```
 
-### Option B — dedicated installer
+After the npm package is published, select Claude Code/Codex and project/global scope interactively:
 
 ```bash
-npx ts-abbr-skill
+npx ts-js-slug-skill
 ```
 
-You'll be asked which agent(s) to install for (Claude Code, Codex — more than one can be selected) and where:
+| Agent       | Project path                         | Global path                          |
+| ----------- | ------------------------------------ | ------------------------------------ |
+| Claude Code | `./.claude/skills/ts-js-slug-skill/` | `~/.claude/skills/ts-js-slug-skill/` |
+| Codex       | `./.agents/skills/ts-js-slug-skill/` | `~/.codex/skills/ts-js-slug-skill/`  |
 
-| Agent | Project path | Global path |
-|-------|--------------|-------------|
-| Claude Code | `./.claude/skills/ts-abbr-skill/` | `~/.claude/skills/ts-abbr-skill/` |
-| Codex | `./.agents/skills/ts-abbr-skill/` | `~/.codex/skills/ts-abbr-skill/` |
+Reinstalling preserves existing `config/default.config.json` and `dictionary/default.json`. Use project scope to share conventions with your team.
 
-Project scope is recommended for team-shared conventions — commit it to your repo. Global scope applies to all your projects.
+## TypeScript and JavaScript Naming
 
-Re-running the installer is safe: your customized `config/default.config.json` and `dictionary/default.json` at the target are never overwritten.
+| Naming style                    | Before                             | After                |
+| ------------------------------- | ---------------------------------- | -------------------- |
+| camelCase                       | `businessContext`                  | `bizCtx`             |
+| PascalCase (when in scope)      | `BusinessContext`                  | `BizCtx`             |
+| snake_case (project convention) | `business_context`                 | `biz_ctx`            |
+| SCREAMING_SNAKE_CASE            | `MAXIMUM_BUFFER_LENGTH`            | `MAX_BUF_LEN`        |
+| Identifier prefixes             | `$configuration`, `_configuration` | `$config`, `_config` |
+| Acronyms                        | `HTTPResponse`                     | `HTTPResp`           |
 
-## What it does
+Match whole word segments, preserve separators/case, and leave unmatched words intact. Check TS/JS keywords, built-ins, and scope collisions before using a suggestion. For example, `variable` → `var` is invalid as a complete binding name, while `variableCount` → `varCount` is valid. Keep external APIs such as `document`, `.length`, and `.toString()` intact; only eligible local declarations and their references are candidates for renaming.
 
-- **When generating new code**: the agent checks the abbreviation dictionary before naming local variables/parameters and uses the abbreviated form when a match exists.
-- **When refactoring existing code**: batch renames go through an AST-aware rename script (`ts-morph`-based), never plain-text find/replace, so cross-file references stay correct. A `tsc --noEmit` check is required afterward before the rename is considered done.
+For new code, check every eligible declaration, including intermediate locals and loop bindings. For existing code, use a semantic rename tool and run the repository's configured type checks, lint, and relevant tests. See the [skill instructions](skills/ts-js-slug-skill/SKILL.md) and [TS/JS tooling reference](skills/ts-js-slug-skill/references/language-tooling.md).
 
-See [`skills/ts-abbr-skill/SKILL.md`](skills/ts-abbr-skill/SKILL.md) for the full rules the agent follows.
+## Built-in Dictionary
 
-## Built-in Dictionary (excerpt)
+The dictionary covers general programming, collections, networking, security, storage, tooling, graphics, and units. Singular/plural forms are explicit mappings.
 
-| Full word | Abbreviation |
-|-----------|--------------|
-| business | biz |
-| context | ctx |
-| configuration / config | cfg |
-| parameter / parameters | param / params |
-| response | res |
-| request | req |
-| temporary | tmp |
-| reference | ref |
-| element | el |
-| repository | repo |
-| database | db |
-| application | app |
-| ... | ... |
+| Full word                          | Abbreviation       |
+| ---------------------------------- | ------------------ |
+| business / context / configuration | biz / ctx / config |
+| parameter / parameters             | param / params     |
+| request / response                 | req / resp         |
+| buffer / length                    | buf / len          |
+| dictionary / dictionaries          | dict / dicts       |
+| error / errors                     | err / errs         |
+| authentication / authorization     | auth / authz       |
+| transaction / transactions         | tx / txs           |
+| organization / department          | org / dept         |
+| latitude / longitude               | lat / lng          |
+| notification / notifications       | notif / notifs     |
+| vector / matrix                    | vec / mat          |
 
-Full dictionary: [`skills/ts-abbr-skill/dictionary/default.json`](skills/ts-abbr-skill/dictionary/default.json)
+The authoritative built-in mappings are in [dictionary/default.json](skills/ts-js-slug-skill/dictionary/default.json); examples and tests follow that file. Words absent from the resolved dictionary remain unchanged. Some words share an abbreviation; keep the full name when the shorter form would obscure meaning or collide in the target scope.
+
+`configuration/configurations` become `config/configs`; existing `config` stays unchanged. `dev`, `sync`, and `num` represent `development`, `synchronous`, and `number` respectively. Keep `developer`, `synchronize`, `synchronization`, `numeric`, `format`, `formatter`, `subscriber`, and `subscription` in full, along with their plural forms.
 
 ## Customize
 
-**Scope** — edit `<install target>/config/default.config.json`:
+Edit `<skill-dir>/config/default.config.json` to choose eligible identifier kinds:
 
 ```json
 { "scope": ["variable", "parameter"], "exported": false }
 ```
 
-`scope` accepts `variable`, `parameter`, `localFunction`, `class`. `exported` controls whether public/exported symbols are eligible (default `false`).
+`scope` accepts `variable`, `parameter`, `localFunction`, and `class`. `exported` controls public/exported symbols and defaults to `false`.
 
-**Project-specific additions** — add `.ts-abbr-skill.local.json` at your repo root; entries are merged on top of the default dictionary:
+Add a flat dictionary override at the target repository root as `.ts-js-slug-skill.local.json`:
 
 ```json
 {
   "warehouse": "wh",
-  "department": "dept"
+  "customer": "cust"
 }
 ```
+
+Entries merge over built-in defaults. Both legacy filenames remain supported: precedence is built-in defaults < `.ts-abbr-skill.local.json` < `.slug-skill.local.json` < `.ts-js-slug-skill.local.json`. Override files contain word mappings only; scope stays in the skill config.
+
+## Bundled Scripts
+
+Installation copies these optional helpers into the skill directory; it does not run them automatically.
+
+| Script                            | Purpose                                                                                                                   | Writes source files |
+| --------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| `scripts/suggest-name.ts`         | Merge dictionaries and suggest valid local binding names                                                                  | No                  |
+| `scripts/rename-with-ts-morph.ts` | Rename local TypeScript bindings and references, preserving shorthand keys and import/export specifier names with aliases | Yes                 |
+
+The rename helper requires resolvable `ts-morph` and `tsx` dependencies and a target `tsconfig.json`. See the [tooling reference](skills/ts-js-slug-skill/references/language-tooling.md) for invocation and dependency setup. Scope eligibility and public API review remain the caller's responsibility.
+
+## Suggest Names
+
+The optional helper requires Node.js and `tsx`. It reads dictionaries and prints suggestions without editing source files:
+
+```bash
+npx tsx <skill-dir>/scripts/suggest-name.ts --repo /path/to/project \
+  businessContext business_context MAXIMUM_BUFFER_LENGTH
+```
+
+```text
+businessContext -> bizCtx
+business_context -> biz_ctx
+MAXIMUM_BUFFER_LENGTH -> MAX_BUF_LEN
+```
+
+The helper handles ASCII identifiers and conservatively leaves non-ASCII names and names enclosed in double underscores unchanged. It checks each complete candidate's identifier syntax and rejects reserved or restricted binding names under strict/module conventions, falling back to the original name. For example, `variable` stays `variable`, while `variableCount` becomes `varCount`. It does not inspect source scope, built-ins, or collisions; the agent must review suggestions in their source context.
+
+## Migrate from ts-abbr-skill or slug-skill
+
+Install `ts-js-slug-skill` in the same agent/scope, copy your customized config/dictionary from the old skill directory if needed, then remove the old installation to avoid loading both skills. The installer creates the new directory and does not migrate or remove an old installation automatically. Existing protected dictionaries are preserved on reinstall; merge updated built-in entries manually if you customized that file.
 
 ## Development
 
 ```bash
-npm install
-npm run build   # bundles src/cli.ts -> dist/cli.js
-node dist/cli.js  # try the installer locally
+npm ci
+npm test
+npm run typecheck
+npm run lint
+npm run build
+node dist/cli.js
 ```
 
-For iterating on skill content, use a symlink instead of rebuilding:
+For local skill-content iteration, link the skill folder directly:
 
 ```bash
-ln -sfn /path/to/ts-abbr-skill/skills/ts-abbr-skill \
-  your-test-project/.claude/skills/ts-abbr-skill
+ln -sfn /path/to/ts-js-slug-skill/skills/ts-js-slug-skill \
+  your-test-project/.claude/skills/ts-js-slug-skill
 ```
+
+The source repository is currently `aShu-guo/ts-abbr-skill`. A GitHub repository rename and npm publication are separate release steps; changing local metadata does not perform either action.
+
+## Publish to npm
+
+| Command                   | Effect                                                        |
+| ------------------------- | ------------------------------------------------------------- |
+| `npm run publish:dry-run` | Validate, build, and preview the package without uploading it |
+| `npm run publish:npm`     | Publish the current version publicly to the npm registry      |
+
+Both commands run type checking, lint, formatting checks, tests, and the build through `prepublishOnly`. Run `npm run verify` to perform the checks independently.
 
 ## License
 

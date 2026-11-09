@@ -1,14 +1,16 @@
 {
-  "name": "ts-abbr-skill",
+  "name": "ts-js-slug-skill",
   "version": "1.2.1",
-  "description": "Agent skill (Claude Code, Codex, and more) that applies a configurable abbreviation dictionary (business→biz, context→ctx, ...) to TypeScript variable/parameter naming.",
+  "description": "Agent skill for clear, consistent TypeScript and JavaScript identifier naming using a configurable abbreviation dictionary.",
   "type": "module",
   "bin": {
-    "ts-abbr-skill": "dist/cli.js"
+    "ts-js-slug-skill": "dist/cli.js"
   },
   "files": [
     "dist",
-    "skills"
+    "skills",
+    "assets/ts-js-slug-skill-logo.svg",
+    "assets/ts-js-slug-skill-icon.svg"
   ],
   "scripts": {
     "build": "tsup",
@@ -19,7 +21,10 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepublishOnly": "npm run build"
+    "verify": "npm run typecheck && npm run lint && npm run format:check && npm test",
+    "prepublishOnly": "npm run verify && npm run build",
+    "publish:npm": "npm publish --access public --registry=https://registry.npmjs.org",
+    "publish:dry-run": "npm run publish:npm -- --dry-run"
   },
   "keywords": [
     "claude-code",
@@ -27,13 +32,15 @@
     "agent-skills",
     "skill",
     "typescript",
+    "javascript",
     "naming",
-    "abbreviation"
+    "abbreviation",
+    "slug"
   ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aShu-guo/ts-abbr-skill.git"
+    "url": "git+https://github.com/aShu-guo/ts-abbr-skill.git"
   },
   "dependencies": {
     "prompts": "^2.4.2"

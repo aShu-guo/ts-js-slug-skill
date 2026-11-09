@@ -11,7 +11,7 @@ export interface RenameArgs {
 }
 
 const USAGE =
-  'Usage: rename-with-ts-morph --file <path> --line <n> --col <n> --newName <name> [--tsconfig <path>]'
+  'Usage: tsx rename-with-ts-morph.ts --file <path> --line <n> --col <n> --newName <name> [--tsconfig <path>]'
 
 /** A conservative check for a valid single JS/TS identifier (no keywords check — ts-morph will surface real conflicts). */
 const IDENTIFIER_RE = /^[A-Za-z_$][A-Za-z0-9_$]*$/
@@ -86,14 +86,16 @@ export function renameIdentifier(args: RenameArgs): RenameResult {
   }
 
   const identifierNode =
-    node.getKind() === SyntaxKind.Identifier ? node : node.getFirstAncestorByKind(SyntaxKind.Identifier)
+    node.getKind() === SyntaxKind.Identifier
+      ? node
+      : node.getFirstAncestorByKind(SyntaxKind.Identifier)
   if (!identifierNode) {
     throw new Error(`No identifier found at ${file}:${line}:${col}`)
   }
 
   const identifier = identifierNode.asKindOrThrow(SyntaxKind.Identifier)
   const oldName = identifier.getText()
-  identifier.rename(newName)
+  identifier.rename(newName, { usePrefixAndSuffixText: true })
   project.saveSync()
 
   return { oldName, newName }

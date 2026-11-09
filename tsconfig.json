@@ -11,5 +11,5 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src", "skills/ts-abbr-skill/scripts", "test"]
+  "include": ["src", "skills/ts-js-slug-skill/scripts", "test"]
 }
