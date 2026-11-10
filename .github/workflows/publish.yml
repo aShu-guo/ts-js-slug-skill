@@ -23,9 +23,16 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
-      - run: npm publish --access public
+      - name: Publish npm version if needed
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          package_spec=$(node -p 'const pkg = require("./package.json"); `${pkg.name}@${pkg.version}`')
+          if npm view "$package_spec" version --registry=https://registry.npmjs.org >/dev/null 2>&1; then
+            echo "$package_spec is already published."
+            exit 0
+          fi
+          npm publish --access public --registry=https://registry.npmjs.org
 
   publish-release:
     needs: publish-npm

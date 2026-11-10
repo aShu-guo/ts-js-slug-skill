@@ -21,4 +21,4 @@ npx tsx <skill-dir>/scripts/rename-with-ts-morph.ts \
   --tsconfig /path/to/project/tsconfig.json
 ```
 
-Line and column are 1-based. The helper updates the selected symbol's references and saves the project. It uses aliases to preserve shorthand object keys and import/export specifier names when renaming a local binding. Scope eligibility, public API compatibility, keyword/shadowing checks, and validation remain the caller's responsibility.
+Line and column are 1-based. The helper updates the selected symbol's references and saves the project. It uses aliases to preserve shorthand object keys and import/export specifier names when renaming a local binding. The caller must first choose a name under [the skill's meaning and boundary rules](../SKILL.md#meaning-and-boundaries-first); semantic rename updates references but does not establish that a shorter name preserves business meaning. Scope eligibility, public API compatibility, keyword/shadowing checks, and validation remain the caller's responsibility.

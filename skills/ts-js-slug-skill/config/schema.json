@@ -9,7 +9,7 @@
     },
     "scope": {
       "type": "array",
-      "description": "Identifier kinds this skill is allowed to abbreviate.",
+      "description": "Identifier kinds eligible for abbreviation candidates, subject to business/protocol meaning and boundary rules.",
       "items": {
         "type": "string",
         "enum": ["variable", "parameter", "localFunction", "class"]
@@ -18,7 +18,7 @@
     },
     "exported": {
       "type": "boolean",
-      "description": "Whether exported/public symbols may be abbreviated. Defaults to false."
+      "description": "Whether exported/public symbols may be considered. Defaults to false. Does not override meaning/boundary rules or authorize public contract changes."
     }
   }
 }
