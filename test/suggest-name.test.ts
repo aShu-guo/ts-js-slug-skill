@@ -60,7 +60,7 @@ test('default suggestions preserve distinct concepts and readable configuration 
     numberValue: 'numVal',
     numbers: 'nums',
     numericValue: 'numericVal',
-    component: 'comp',
+    component: 'component',
     components: 'components',
     format: 'fmt',
     formatName: 'fmtName',

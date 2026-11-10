@@ -1,6 +1,6 @@
 {
   "name": "ts-js-slug-skill",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Agent skill for clear, consistent TypeScript and JavaScript identifier naming using a configurable abbreviation dictionary.",
   "type": "module",
   "bin": {

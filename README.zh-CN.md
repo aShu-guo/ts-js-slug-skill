@@ -73,7 +73,7 @@ npx ts-js-slug-skill
 
 内置映射以 [dictionary/default.json](skills/ts-js-slug-skill/dictionary/default.json) 为准，示例和测试随词典同步。合并后的词典未收录的单词保持原样。部分词条存在相同缩写；当缩写造成歧义或同作用域冲突时，保留完整名称。
 
-`configuration/configurations` 使用 `config/configs`，已有的 `config` 保持原样。`dev`、`sync`、`num` 分别表示 `development`、`synchronous`、`number`。`format` 使用 `fmt`，`formatter` 和 `formatters` 保持原样；`component` 使用 `comp`，`components` 保持原样。`developer`、`synchronize`、`synchronization`、`numeric`、`subscriber`、`subscription` 及其复数形式保留完整词。
+`configuration/configurations` 使用 `config/configs`，已有的 `config` 保持原样。`dev`、`sync`、`num` 分别表示 `development`、`synchronous`、`number`。`format` 使用 `fmt`，`formatter` 和 `formatters` 保持原样。`developer`、`synchronize`、`synchronization`、`numeric`、`subscriber`、`subscription` 及其复数形式保留完整词。
 
 ## 自定义
 

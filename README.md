@@ -73,7 +73,7 @@ The dictionary covers general programming, collections, networking, security, st
 
 The authoritative built-in mappings are in [dictionary/default.json](skills/ts-js-slug-skill/dictionary/default.json); examples and tests follow that file. Words absent from the resolved dictionary remain unchanged. Some words share an abbreviation; keep the full name when the shorter form would obscure meaning or collide in the target scope.
 
-`configuration/configurations` become `config/configs`; existing `config` stays unchanged. `dev`, `sync`, and `num` represent `development`, `synchronous`, and `number` respectively. `format` becomes `fmt`; `formatter` and `formatters` stay unchanged. `component` becomes `comp`, while `components` stays unchanged. Keep `developer`, `synchronize`, `synchronization`, `numeric`, `subscriber`, and `subscription` in full, along with their plural forms.
+`configuration/configurations` become `config/configs`; existing `config` stays unchanged. `dev`, `sync`, and `num` represent `development`, `synchronous`, and `number` respectively. `format` becomes `fmt`; `formatter` and `formatters` stay unchanged. Keep `developer`, `synchronize`, `synchronization`, `numeric`, `subscriber`, and `subscription` in full, along with their plural forms.
 
 ## Customize
 
